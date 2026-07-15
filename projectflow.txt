@@ -42,3 +42,14 @@
     dvc status
     dvc commit
     dvc push
+
+28. Create new folder: "flask_app" | Inside that, add directory & rest of the files
+29. "python -m pip install flask" and run the app (optional: dvc push - to push data to S3)
+30. pip freeze > requirements.txt
+31. Add .github/workflows/ci.yaml file
+32. Create key token on Dagshub for auth: Go to dagshub repo > Upper right corner> profile > Your settings > Tokens > Generate new token
+    >> Please make sure to save token << >> capstone_test: xxxxx<<
+    >> Add this auth token to github secret
+        Project github repo > Setttings > Secrets & Variables > Actions > Under Repository secrets "New Repository secret"
+    Update on ci file
+31. Add dir "tests"&"scripts" and files within. This will contain our test related scripts for CI.

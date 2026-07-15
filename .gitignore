@@ -220,3 +220,5 @@ __marimo__/
 #
 cred.txt
 /data
+extra_project_info.txt
+models/

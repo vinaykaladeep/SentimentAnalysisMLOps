@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sentiment-app
+  labels:
+    app: sentiment-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sentiment-app
+  template:
+    metadata:
+      labels:
+        app: sentiment-app
+    spec:
+      containers:
+      - name: sentiment-app
+        image: 478335820436.dkr.ecr.ap-south-1.amazonaws.com/sentiment-analysis-mlops:latest
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "1"
+        env:
+        - name: CAPSTONE_TEST
+          valueFrom:
+            secretKeyRef:
+              name: capstone-secret
+              key: CAPSTONE_PWD
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sentiment-app-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: sentiment-app
+  ports:
+    - name: http
+      protocol: TCP
+      port: 5000
+      targetPort: 5000
